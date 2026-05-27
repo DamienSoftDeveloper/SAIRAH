@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
+using SAIRAH.App.ViewModels;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -11,14 +12,21 @@ using System.Windows.Shapes;
 
 namespace SAIRAH.App
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+
+            Loaded += MainWindow_Loaded;
+        }
+
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                await viewModel.InitialiseAsync();
+            }
         }
     }
 }

@@ -1,3 +1,9 @@
 <Solution>
   <Project Path="src/SAIRAH.App/SAIRAH.App.csproj" />
+  <Project Path="src/SAIRAH.Commands/SAIRAH.Commands.csproj" Id="4f55178b-e616-4f05-ab74-0a31654723a4" />
+  <Project Path="src/SAIRAH.Console/SAIRAH.Console.csproj" Id="6a76ef60-f56f-42b2-8cd3-22330e99d604" />
+  <Project Path="src/SAIRAH.Core/SAIRAH.Core.csproj" Id="8316d2de-de8f-4c1d-995d-e6ad72e6b2af" />
+  <Project Path="src/SAIRAH.Security/SAIRAH.Security.csproj" Id="175920e3-b9ab-4f91-927e-515b8a00a56a" />
+  <Project Path="src/SAIRAH.Shared/SAIRAH.Shared.csproj" Id="9cfa6c35-1857-4eed-8b53-a3a3d629b6ab" />
+  <Project Path="src/SAIRAH.Storage/SAIRAH.Storage.csproj" Id="6999841d-b663-4df7-a92a-96140b304392" />
 </Solution>

@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SAIRAH.Commands\SAIRAH.Commands.csproj" />
+    <ProjectReference Include="..\SAIRAH.Core\SAIRAH.Core.csproj" />
+    <ProjectReference Include="..\SAIRAH.Security\SAIRAH.Security.csproj" />
+    <ProjectReference Include="..\SAIRAH.Shared\SAIRAH.Shared.csproj" />
+    <ProjectReference Include="..\SAIRAH.Storage\SAIRAH.Storage.csproj" />
+  </ItemGroup>
+
 </Project>
