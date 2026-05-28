@@ -34,6 +34,7 @@ namespace SAIRAH.App.Bootstrap
             router.AddCommand(new OpenWebsiteCommand());
             router.AddCommand(new CreateFolderCommand());
             router.AddCommand(new RunWorkflowCommand(workflowRepository, assistantEngine));
+            router.AddCommand(new WorkflowCommandService(workflowRepository));
 
             return assistantEngine;
         }

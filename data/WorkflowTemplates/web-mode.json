@@ -1,0 +1,15 @@
+{
+  "Name": "web mode",
+  "Description": "Opens common web tools.",
+  "Steps": [
+    {
+      "Command": "open website google"
+    },
+    {
+      "Command": "open website youtube"
+    },
+    {
+      "Command": "open website github"
+    }
+  ]
+}

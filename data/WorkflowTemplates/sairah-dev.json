@@ -1,0 +1,12 @@
+{
+  "Name": "sairah dev",
+  "Description": "Opens common tools for developing SAIRAH.",
+  "Steps": [
+    {
+      "Command": "open website github"
+    },
+    {
+      "Command": "open folder documents"
+    }
+  ]
+}

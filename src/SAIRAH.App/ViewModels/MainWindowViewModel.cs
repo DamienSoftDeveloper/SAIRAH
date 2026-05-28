@@ -71,19 +71,22 @@ namespace SAIRAH.App.ViewModels
             });
         }
 
-        public async Task InitialiseAsync()
+        public Task InitialiseAsync()
         {
             try
             {
-                IWorkflowRepository workflowRepository = new JsonWorkflowRepository();
-                DefaultWorkflowSeeder workflowSeeder = new DefaultWorkflowSeeder(workflowRepository);
+                WorkflowPathProvider pathProvider = new WorkflowPathProvider();
 
-                await workflowSeeder.SeedAsync();
+                DefaultWorkflowSeeder workflowSeeder = new DefaultWorkflowSeeder(pathProvider);
+
+                int copiedCount = workflowSeeder.SeedIfNeeded();
+
+                string message = copiedCount > 0 ? $"Default workflows are ready. Seeded {copiedCount} workflow(s)." : "Default workflows are ready.";
 
                 Messages.Add(new ChatMessage
                 {
                     Sender = "SAIRAH",
-                    Message = "Default workflows are ready."
+                    Message = message
                 });
             }
             catch (Exception ex)
@@ -94,6 +97,8 @@ namespace SAIRAH.App.ViewModels
                     Message = $"Workflow setup failed: {ex.Message}"
                 });
             }
+
+            return Task.CompletedTask;
         }
 
     }

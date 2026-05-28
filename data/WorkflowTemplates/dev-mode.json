@@ -1,0 +1,15 @@
+{
+  "Name": "dev mode",
+  "Description": "Basic development workspace test workflow.",
+  "Steps": [
+    {
+      "Command": "open notepad"
+    },
+    {
+      "Command": "open website github"
+    },
+    {
+      "Command": "open folder documents"
+    }
+  ]
+}

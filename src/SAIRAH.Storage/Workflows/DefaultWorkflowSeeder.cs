@@ -1,65 +1,44 @@
-﻿using SAIRAH.Shared.Workflows;
-
+﻿
 namespace SAIRAH.Storage.Workflows
 {
     public sealed class DefaultWorkflowSeeder
     {
-        private readonly IWorkflowRepository _workflowRepository;
+        private readonly WorkflowPathProvider _pathProvider;
 
-        public DefaultWorkflowSeeder(IWorkflowRepository workflowRepository)
+        public DefaultWorkflowSeeder(WorkflowPathProvider pathProvider)
         {
-            _workflowRepository = workflowRepository;
+            _pathProvider = pathProvider;
         }
 
-        public async Task SeedAsync()
+        public int SeedIfNeeded()
         {
-            await SeedWorkflowAsync(new WorkflowDefinition
-            {
-                Name = "dev mode",
-                Description = "Basic development workspace test workflow.",
-                Steps =
-                [
-                    new WorkflowStep { Command = "open notepad" },
-                new WorkflowStep { Command = "open website github" },
-                new WorkflowStep { Command = "open folder documents" }
-                ]
-            });
+            _pathProvider.EnsureUserWorkflowFolderExists();
 
-            await SeedWorkflowAsync(new WorkflowDefinition
-            {
-                Name = "web mode",
-                Description = "Opens common web tools.",
-                Steps =
-                [
-                    new WorkflowStep { Command = "open website google" },
-                new WorkflowStep { Command = "open website youtube" },
-                new WorkflowStep { Command = "open website github" }
-                ]
-            });
+            if (_pathProvider.UserWorkflowFolderHasWorkflows())
+                return 0;
 
-            await SeedWorkflowAsync(new WorkflowDefinition
-            {
-                Name = "sairah dev",
-                Description = "Opens common tools for developing SAIRAH.",
-                Steps =
-                [
-                    new WorkflowStep { Command = "open website github" },
-                new WorkflowStep { Command = "open folder documents" }
-                ]
-            });
-        }
+            if (!_pathProvider.TemplateFolderHasWorkflows())
+                return 0;
 
-        private async Task SeedWorkflowAsync(WorkflowDefinition workflow)
-        {
-            WorkflowDefinition? existingWorkflow = await _workflowRepository.GetByNameAsync(workflow.Name);
+            int copiedCount = 0;
 
-            if (existingWorkflow != null)
+            foreach (string sourceFile in Directory.EnumerateFiles(_pathProvider.TemplateWorkflowsPath!, "*.json"))
             {
-                return;
+                string fileName = Path.GetFileName(sourceFile);
+                string destinationFile = Path.Combine(_pathProvider.UserWorkflowsPath, fileName);
+
+                if (File.Exists(destinationFile))
+                    continue;
+
+                File.Copy(sourceFile, destinationFile);
+                copiedCount++;
             }
 
-            await _workflowRepository.SaveAsync(workflow);
+            return copiedCount;
         }
+
+      
     }
 }
+
 
